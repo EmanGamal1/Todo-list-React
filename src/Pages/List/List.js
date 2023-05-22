@@ -13,7 +13,6 @@ const List = () => {
 
   useEffect(() => {
     const fetchedTodos = getTodos();
-    // const sortedTodos = fetchedTodos.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort todos in descending order
     setTodos(fetchedTodos);
   }, []);
 
@@ -22,16 +21,15 @@ const List = () => {
     navigate('/add-todo');
   };
 
-  const handleDelete = (todo) => {
-    deleteTodo(todo.id);
+  const handleDelete = (index) => {
+    deleteTodo(index);
     const updatedTodos = getTodos();
-    // const sortedTodos = updatedTodos.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     setTodos(updatedTodos);
   };
 
   const handleEdit = (todo) => {
     navigate(`/edit-todo/${todo.id}?oldData=${encodeURIComponent(JSON.stringify(todo))}`);
-};
+  };
 
   return (
     <div className='body'>
@@ -41,35 +39,41 @@ const List = () => {
         <Btn name='btn btn-outline-dark' title='Add Todo' onClick={navigateToAdd} />
         <div className='container allItems mb-4'>
           <div className='row listItem pt-4 m-auto pb-3'>
-            <div className='col-8'>
-              {todos.map((todo) => (
-                <div key={todo.id}>
-                  <p>
-                    {todo.text} &nbsp;
-                    <span className="timestamp">{new Date(todo.createdAt).toLocaleString()}</span>                  
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className='col-4'>
-              {todos.map((todo) => (
-                <div key={todo.id} className='deleteButton'>
-                    <Link to={`/details/${todo.id}`}>
-                    <Btn name="btn btn-outline-dark mb-2" title="Details"/>
-                  </Link> &nbsp;
-                  <Link
-                    to={`/edit-todo/${todo.id}?oldData=${encodeURIComponent(JSON.stringify(todo))}`}
-                    className='editLink'> 
-                        <FontAwesomeIcon icon={faEdit} size='2x' className='text-dark' onClick={() => handleEdit(todo.id)} />
-                  </Link>&nbsp;
-                  <FontAwesomeIcon
-                    icon={faTrashAlt}
-                    size='2x'
-                    onClick={() => handleDelete(todo.id)}
-                  />
-                </div>
-              ))}
-            </div>
+            {todos.length > 0 ? (
+              <div className='col-12'>
+                <table className='table'>
+                  <tbody>
+                    {todos.map((todo, index) => (
+                      <tr key={todo.id}>
+                        <td>
+                          <p>
+                            {todo.text} &nbsp;
+                            <span className='timestamp'>{new Date(todo.createdAt).toLocaleString()}</span>
+                          </p>
+                        </td>
+                        <td>
+                          <div>
+                            <Link to={`/details/${todo.id}`}>
+                              <Btn name='btn btn-outline-dark mb-2' title='Details' />
+                            </Link>{' '}
+                            &nbsp;
+                            <Link to={`/edit-todo/${todo.id}?oldData=${encodeURIComponent(JSON.stringify(todo))}`} className='editLink'>
+                              <FontAwesomeIcon icon={faEdit} size='2x' className='text-dark' onClick={() => handleEdit(todo.id)} />
+                            </Link>
+                            &nbsp;
+                            <FontAwesomeIcon icon={faTrashAlt} size='2x' onClick={() => handleDelete(index)} />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className='col-12'>
+                <p>No Todo Found</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

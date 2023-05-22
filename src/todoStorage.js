@@ -1,7 +1,7 @@
 export const saveTodo = (todo) => {
   const todos = getTodos();
   const newTodo = {
-    id: Math.random().toString(36).substring(2, 15),
+    id: Date.now(),
     text: todo,
     createdAt: new Date().toISOString(),
   };
@@ -12,7 +12,7 @@ export const saveTodo = (todo) => {
 export const saveTodoEdit = (todo, id) => {
   const todos = getTodos();
   const updatedTodo = {
-    id: id,
+    id: todo.id,
     text: todo.text,
     createdAt: todo.createdAt || new Date().toISOString(),
   };

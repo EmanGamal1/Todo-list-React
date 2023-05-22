@@ -12,21 +12,21 @@ const EditTodo = () => {
   const oldData = new URLSearchParams(location.search).get('oldData');
   const parsedOldData = JSON.parse(decodeURIComponent(oldData));
 
-  const [todo, setTodo] = useState(parsedOldData.text);
+  const [todoEdit, setTodoEdit] = useState(parsedOldData.text);
   const [error, setError] = useState('');
 
   const handleInputChange = (event) => {
-    setTodo(event.target.value);
+    setTodoEdit(event.target.value);
   };
 
   const handleSave = () => {
-    if (todo.length < 5 || todo.length > 100) {
+    if (todoEdit.length < 5 || todoEdit.length > 100) {
       setError(`Todo text must be between 5 and 100 characters`);
       return;
     }
 
     deleteTodo(parsedOldData);
-    const updatedTodo = { ...parsedOldData, text: todo };
+    const updatedTodo = { ...parsedOldData, text: todoEdit };
     saveTodoEdit(updatedTodo);
     navigate('/');
   };
@@ -34,7 +34,7 @@ const EditTodo = () => {
   return (
 <div className='container allItems'>
 <div className='row listItem p-5 m-auto'>
-      <TextArea className='form-control' type="text" value={todo} handleChange={handleInputChange} />
+      <TextArea className='form-control' type="text" value={todoEdit} handleChange={handleInputChange} />
       {error && <p className="error alert alert-danger">{error}</p>}<br/>
       <Btn onClick={handleSave} title="Save" name="btn w-25 btn-outline-dark mt-3" />
 </div><br/>
