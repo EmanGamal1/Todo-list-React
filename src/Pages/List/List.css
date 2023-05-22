@@ -1,0 +1,10 @@
+.body{
+    background-color: #e8e7f4;
+    padding-top: 50px;
+    height: 100vh;
+}
+
+.listContent{
+    border: 3px solid #5a4ec5;
+    border-radius: 20px;
+}

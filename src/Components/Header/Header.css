@@ -1,0 +1,15 @@
+.mainImage{
+    height: 550px;
+    margin-right: 80px;
+}
+
+.header{
+    background-color: #5a4ec5;
+    color: white;
+    height: 75vh;
+}
+
+.content{
+    margin-left: 20%;
+    margin-top: 13%;
+}

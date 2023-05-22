@@ -1,0 +1,14 @@
+.listItemEdit{
+    border: 1px solid #5a4ec5;
+    border-radius: 10px;
+    background-color: #b4b2ccca;
+    box-shadow: 0 7px 12px rgba(150, 150, 150, 0.5);
+    width: 60%;
+    margin: auto;
+
+}
+
+.allItemsEdit{
+    margin: auto;
+    margin-top: 5%;
+}
